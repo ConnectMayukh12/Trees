@@ -16,3 +16,20 @@ class Solution {
         return count;
     }
 };
+
+//Recursive Method :2 
+
+class Solution {
+     
+  public:
+    int count=0;
+
+    int getSize(Node* root) {
+        // code here
+        if(root==nullptr)return 0;
+        int left=diameterOfBinaryTree(root->left);
+        int right=diameterOfBinaryTree(root->right);
+        return 1+left+right;
+
+    }
+};
