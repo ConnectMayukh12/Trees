@@ -1,0 +1,39 @@
+class Solution {
+public:
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        queue<pair<vector<TreeNode*>, int>> q;
+        vector<vector<int>> result;
+
+        if (!root) return result;
+
+        vector<TreeNode*> initialPath = {root};
+        q.push({initialPath, root->val});
+
+        while (!q.empty()) {
+            auto [path, sum] = q.front();
+            q.pop();
+            TreeNode* curr = path.back();
+
+            if (!curr->left && !curr->right && sum == targetSum) {
+                vector<int> temp;
+                for (TreeNode* node : path)
+                    temp.push_back(node->val);
+                result.push_back(temp);
+            }
+
+            if (curr->left) {
+                vector<TreeNode*> newPath(path);
+                newPath.push_back(curr->left);
+                q.push({newPath, sum + curr->left->val});
+            }
+
+            if (curr->right) {
+                vector<TreeNode*> newPath(path);
+                newPath.push_back(curr->right);
+                q.push({newPath, sum + curr->right->val});
+            }
+        }
+
+        return result;
+    }
+};
